@@ -4,6 +4,10 @@
 // Include the console module
 #include "src/console/console.h"
 
+// Include the command processing module
+#include "src/cmd_process/cmd_process.h"
+
+
 // This function is used to initialize the various hardware that will be used
 // in the code. It is only called once.
 void setup() {
@@ -11,6 +15,10 @@ void setup() {
   hrtbt_cfg();
 
   // Set up the console module
+  console_cfg();
+
+  // Set up the command processing module
+  cmd_process_cfg();
 }
 
 // This function is where the actual application code resides. It will run thru

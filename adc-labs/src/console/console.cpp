@@ -1,4 +1,5 @@
 #include "console.h"
+#include "../cmd_process/cmd_process.h"
 
 #include <Arduino.h>
 
@@ -27,9 +28,6 @@ void console_cfg(void)
 {
     // Prepare the console port for use
     CONSOLE_PORT.begin((long)CONSOLE_BAUDRATE);
-
-    // Display the basic prompt
-    display_prompt();
 }
 
 void console_action(void)
@@ -54,7 +52,8 @@ void console_action(void)
         else if ((uint8_t)CHAR_CR == in_byte)
         {
             CONSOLE_PORT.print("\r\n");
-            CONSOLE_PORT.print((char *)cmd_str);
+            cmd_process_load_cmd(cmd_str, cmd_byte_pos);
+            cmd_process_process_cmd();
             CONSOLE_PORT.print("\r\n");
             (void)memset(
                 (void *)&cmd_str,
@@ -74,6 +73,11 @@ void console_action(void)
             }
         }
     }
+}
+
+void console_display_str_nl(const uint8_t * const str)
+{
+    CONSOLE_PORT.println((char *)str);
 }
 
 static void display_prompt(void)
