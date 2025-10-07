@@ -60,6 +60,7 @@ void cmd_process_process_cmd(void)
     {
         console_display_str_nl((uint8_t *)"Help menu");
         console_display_str_nl((uint8_t *)"Available commands: ");
+        console_display_str_nl((uint8_t *)"    help or ? - Display this help message");
     }
 
     cmd_process_do_work = false;
