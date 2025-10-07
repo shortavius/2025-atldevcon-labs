@@ -10,5 +10,6 @@ void cmd_process_load_cmd(
     const uint8_t * const in_cmd,
     uint8_t cmd_len);
 void cmd_process_process_cmd(void);
+uint8_t skip_spaces(char *idx);
 
 #endif /* CMD_PROCESS_H */

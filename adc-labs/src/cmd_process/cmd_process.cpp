@@ -1,5 +1,6 @@
 #include "cmd_process.h"
 #include "../console/console.h"
+#include "cmd_hrtbt.h"
 
 
 #include <string.h>
@@ -16,7 +17,7 @@ static uint8_t cmd_process_str_len = 0u;
 static bool cmd_process_do_work = false;
 
 
-static uint8_t skip_spaces(char *idx);
+static bool cmd_is_hlp(char *cmd);
 
 
 void cmd_process_cfg(void)
@@ -43,6 +44,8 @@ void cmd_process_load_cmd(
 
 void cmd_process_process_cmd(void)
 {
+    bool cmd_handled = false;
+
     // See if there is work to do
     if ((!cmd_process_do_work) ||
         (0u == cmd_process_str_len))
@@ -51,24 +54,44 @@ void cmd_process_process_cmd(void)
         return;
     }
 
-        char * cmd_idx = (char *)&cmd_process_str[0];
+    char * cmd_idx = (char *)&cmd_process_str[0];
     cmd_idx += skip_spaces(cmd_idx);
 
     // Check if the command is help or not
-    if ((0 == strncmp(cmd_idx, "help", strlen("help"))) ||
-        ((1 == cmd_process_str_len)) && ('?' == *cmd_idx))
+    cmd_handled = cmd_is_hlp(cmd_idx);
+    // Check if the command is hrtbt or not
+    if (!cmd_handled) {cmd_handled = cmd_is_hrtbt(cmd_idx); }
+
+    if (!cmd_handled)
     {
-        console_display_str_nl((uint8_t *)"Help menu");
-        console_display_str_nl((uint8_t *)"Available commands: ");
-        console_display_str_nl((uint8_t *)"    help or ? - Display this help message");
-        console_display_str_nl((uint8_t *)"    hrtbt     - sends commands to the heartbeat module add a <?> after the");
-        console_display_str_nl((uint8_t *)"                command to get more help (hrtbt ?)");
+        console_display_str_nl((uint8_t *)"");
+        console_display_str_nl((uint8_t *)"Err: command not found");
     }
 
     cmd_process_do_work = false;
 }
 
-static uint8_t skip_spaces(char *idx)
+static bool cmd_is_hlp(char *cmd)
+{
+    bool rv = false;
+
+    cmd += skip_spaces(cmd);
+    if ((0 == strncmp(cmd, "help", strlen("help"))) ||
+        (0 == strncmp(cmd, "?",    strlen("?"))))
+    {
+        console_display_str_nl((uint8_t *)"");
+        console_display_str_nl((uint8_t *)"Help menu");
+        console_display_str_nl((uint8_t *)"Available commands: ");
+        console_display_str_nl((uint8_t *)"    help or ? - Display this help message");
+        cmd_hrtbt_main_hlp();
+
+        rv = true;
+    }
+
+    return rv;
+}
+
+uint8_t skip_spaces(char *idx)
 {
     char *end = idx;
 
