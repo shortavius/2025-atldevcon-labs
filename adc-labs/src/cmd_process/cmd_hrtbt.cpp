@@ -6,6 +6,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 
 #define CMD_HRTBT_MAIN_HELP                                                   \
@@ -30,6 +31,7 @@ static void hrtbt_delay_help(void);
 static void hrtbt_delay_get(void);
 static bool hrtbt_delay_set_x(char *cmd);
 static void hrtbt_delay_set_help(void);
+static void hrtbt_delay_set_int(char *cmd);
 
 
 void cmd_hrtbt_main_hlp(void)
@@ -127,6 +129,11 @@ static bool hrtbt_delay_set_x(char *cmd)
         hrtbt_delay_set_help();
         rv = true;
     }
+    else
+    {
+        hrtbt_delay_set_int(cmd);
+        rv = true;
+    }
 
     return rv;
 }
@@ -135,4 +142,13 @@ static void hrtbt_delay_set_help(void)
 {
     console_display_str_nl((uint8_t *)"");
     console_display_str_nl((uint8_t *)CMD_HRTBT_DELAY_SET_HELP);
+}
+
+static void hrtbt_delay_set_int(char *cmd)
+{
+    char * buff = console_get_buffer();
+    unsigned long val = strtoul(cmd, 0L, 10);
+
+    hrtbt_set_delay((unsigned int)val);
+    hrtbt_delay_get();
 }

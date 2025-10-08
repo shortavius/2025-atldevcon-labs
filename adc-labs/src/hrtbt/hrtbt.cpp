@@ -74,3 +74,8 @@ unsigned int hrtbt_get_delay(void)
 {
     return hrtbt_delay_ms;
 }
+
+void hrtbt_set_delay(unsigned int new_delay)
+{
+    hrtbt_delay_ms = new_delay;
+}
