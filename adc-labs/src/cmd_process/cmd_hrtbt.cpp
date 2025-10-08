@@ -18,6 +18,9 @@
 #define CMD_HRTBT_DELAY_HELP                                                  \
 "  get - display the heartbeat LED delay value\r\n"                           \
 "  set - update the heartbeat LED delay value"
+#define CMD_HRTBT_DELAY_SET_HELP                                              \
+"  <int> - this is an integer representing the number of milliseconds to\r\n" \
+"          wait before toggling the LED state"
 
 
 static bool hrtbt_x(char *cmd);
@@ -25,6 +28,8 @@ static void hrtbt_help(void);
 static bool hrtbt_delay_x(char *cmd);
 static void hrtbt_delay_help(void);
 static void hrtbt_delay_get(void);
+static bool hrtbt_delay_set_x(char *cmd);
+static void hrtbt_delay_set_help(void);
 
 
 void cmd_hrtbt_main_hlp(void)
@@ -85,6 +90,12 @@ static bool hrtbt_delay_x(char *cmd)
         hrtbt_delay_get();
         rv = true;
     }
+    else if (0 == strncmp(cmd, "set", strlen("set")))
+    {
+        cmd += strlen("set");
+        cmd += skip_spaces(cmd);
+        rv = hrtbt_delay_set_x(cmd);
+    }
 
     return rv;
 }
@@ -105,4 +116,23 @@ static void hrtbt_delay_get(void)
 
     console_display_str_nl((uint8_t *)"");
     console_display_str_nl((uint8_t *)buff);
+}
+
+static bool hrtbt_delay_set_x(char *cmd)
+{
+    bool rv = false;
+
+    if (0 == strncmp(cmd, "?", strlen("?")))
+    {
+        hrtbt_delay_set_help();
+        rv = true;
+    }
+
+    return rv;
+}
+
+static void hrtbt_delay_set_help(void)
+{
+    console_display_str_nl((uint8_t *)"");
+    console_display_str_nl((uint8_t *)CMD_HRTBT_DELAY_SET_HELP);
 }
