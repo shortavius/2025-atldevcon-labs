@@ -24,6 +24,10 @@ static unsigned long hrtbt_toggle_time_msecs = 0;
 // This local global variable is used to keep track of the current state of the LED
 static hrtbt_led_state_t hrtbt_led_state = HRTBT_LED_STATE_MAX;
 
+// This local global variable is used to hold the delay interval for the LED.
+static unsigned int hrtbt_delay_ms = (unsigned int)HRTBT_DELAY_MSECS;
+
+
 void hrtbt_cfg(void)
 {
     // Set the LED_BUILTIN as an output so we may control it. The way this pin is
@@ -62,6 +66,11 @@ void hrtbt_action(void)
         }
 
         // Update the next time the LED needs to have something done to it
-        hrtbt_toggle_time_msecs = msecs + (unsigned long)HRTBT_DELAY_MSECS;
+        hrtbt_toggle_time_msecs = msecs + (unsigned long)hrtbt_delay_ms;
     }
+}
+
+unsigned int hrtbt_get_delay(void)
+{
+    return hrtbt_delay_ms;
 }

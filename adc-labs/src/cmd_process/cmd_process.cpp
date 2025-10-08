@@ -16,6 +16,9 @@ static uint8_t cmd_process_str_len = 0u;
 // This lets this module know if there is work to do.
 static bool cmd_process_do_work = false;
 
+// This is used to be able to write information into a string to be printed
+char ptrstr[CONSOLE_MAX_LINE_SZ] = { 0u };
+
 
 static bool cmd_is_hlp(char *cmd);
 
@@ -101,4 +104,17 @@ uint8_t skip_spaces(char *idx)
     }
 
     return (uint8_t)(end - idx);
+}
+
+char * console_get_buffer(void)
+{
+    return &ptrstr[0];
+}
+
+void console_clear_buffer(void)
+{
+    (void)memset(
+        (void *)&ptrstr,
+        0x00,
+        (sizeof(uint8_t) * CONSOLE_MAX_LINE_SZ));
 }

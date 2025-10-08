@@ -24,6 +24,7 @@ static bool hrtbt_x(char *cmd);
 static void hrtbt_help(void);
 static bool hrtbt_delay_x(char *cmd);
 static void hrtbt_delay_help(void);
+static void hrtbt_delay_get(void);
 
 
 void cmd_hrtbt_main_hlp(void)
@@ -79,6 +80,11 @@ static bool hrtbt_delay_x(char *cmd)
         hrtbt_delay_help();
         rv = true;
     }
+    else if (0 == strncmp(cmd, "get", strlen("get")))
+    {
+        hrtbt_delay_get();
+        rv = true;
+    }
 
     return rv;
 }
@@ -87,4 +93,16 @@ static void hrtbt_delay_help(void)
 {
     console_display_str_nl((uint8_t *)"");
     console_display_str_nl((uint8_t *)CMD_HRTBT_DELAY_HELP);
+}
+
+static void hrtbt_delay_get(void)
+{
+    char * buff = console_get_buffer();
+    const unsigned int delay = hrtbt_get_delay();
+
+    console_clear_buffer();
+    sprintf(buff, "heartbeat LED delay: %d milliseconds", delay);
+
+    console_display_str_nl((uint8_t *)"");
+    console_display_str_nl((uint8_t *)buff);
 }
