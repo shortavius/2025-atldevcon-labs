@@ -38,3 +38,13 @@ Light Emitting Diode (LED) on the board forever. The IO pin that will be used
 in this case is called 
 
 See if you are able to adjust the rate of blinking of the LED.
+
+## Lab 02
+
+While the program you just wrote does perform the task of blinking the LED, it
+isn't implemented in a good way. Since the processor we are using only has a
+single thread of execution, it isn't able to do anything else whilst it is
+executing the delay commands.
+
+See if you are able to refactor the blinking LED program into one that doesn't
+depend on the delay command.
