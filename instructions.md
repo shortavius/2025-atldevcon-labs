@@ -61,3 +61,21 @@ a message.
 
 Once you have your code loaded into the board, you may see it by monitoring the
 serial port. This may be start by clicking on Tools > Serial Monitor.
+
+## Lab 04
+
+Now that we have a way for the you to send information to the Arduino Nano 33
+IoT board, we will begin to create an interface that allows sending of commands
+to the board.
+
+### Lab 04-A
+
+First off, we need to figure out what character will indicate that a command is
+ready to processed. Typically, this is the <enter> or <return> (also known as a
+carriage return) key on the keyboard. If we consult an ASCII chart, so show
+here:
+                        https://www.ascii-code.com/
+
+We can find that the carriage return key is represented as a 13 (or 0x0D in
+hexadecimal). Expand the program such that when the carriage return key is
+pressed, the board with display a prompt character on a new line.
