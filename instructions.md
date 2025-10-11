@@ -131,3 +131,10 @@ So when the <help> command is run the following needs to also be shown
 
     hrtbt   - sends commands to the heartbeat module add a <?> after the
               command to get more help (hrtbt ?)
+
+## Lab 05-B
+
+For the next help message, we are going to add a new module that handles the
+processing the <hrtbt> commands and help. For starters, we'll have the new
+module handle the processing of the following command
+    hrtbt <? or hrtbt>
