@@ -79,3 +79,18 @@ here:
 We can find that the carriage return key is represented as a 13 (or 0x0D in
 hexadecimal). Expand the program such that when the carriage return key is
 pressed, the board with display a prompt character on a new line.
+
+### Lab 04-B
+
+Now that we have a key to signify when a command should be processed, we need
+to build up the command string. In the old days, typically, the maximum number
+of characters a command string could be was 80 characters. We will use the same
+length in this lab.
+
+Modify the program to capture an array of character up to 80 characters long.
+Once the end of the string is found, don't allow anymore characters to be added
+to the string. As each character is received, be sure to send it back to the
+connected computer. When the carriage return is detected, display the command
+string back. Be sure to only allow the alphabet (uppercase and lowercase),
+numbers (0 - 9), and some symbols. Also, the string needs to be cleared each
+time after the carriage return is detected.
