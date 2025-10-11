@@ -107,3 +107,27 @@ the <help> command. Ultimately, this command will display all the available
 commands and a basic description of what they do. This module will need to
 provide a way to copy the command string to be processed to it, and then
 process it.
+
+## Lab 05
+
+Now that we have a way to process commands, we want to add a command to allow
+the changing of the heartbeat blink rate. The commands will have the following
+structure
+
+    hrtbt set delay <integer>
+    hrtbt get delay
+
+The set command will allow us the capability to adjust the blink delay while
+the program is running. The <integer> value in the set command indicates the
+number of milliseconds that the heartbeat module will delay before adjusting
+the LED state. And the get command will display the current number of
+milliseconds that the heartbeat module will delay before adjusting the LED
+state.
+
+## Lab 05-A
+
+First off, we are going to implement the help messages for the <hrtbt> command.
+So when the <help> command is run the following needs to also be shown
+
+    hrtbt   - sends commands to the heartbeat module add a <?> after the
+              command to get more help (hrtbt ?)
