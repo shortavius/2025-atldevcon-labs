@@ -94,3 +94,16 @@ connected computer. When the carriage return is detected, display the command
 string back. Be sure to only allow the alphabet (uppercase and lowercase),
 numbers (0 - 9), and some symbols. Also, the string needs to be cleared each
 time after the carriage return is detected.
+
+### Lab 04-C
+
+Now that we are able to pass commands over to the board, we need to add the
+code to process them. To start off, well implement the <help> command or the
+<?> character. This will basically list all the available commands.
+
+In order to accomplish this, we will need to add a new module for the
+processing of the command string. The command that we are going to implement is
+the <help> command. Ultimately, this command will display all the available
+commands and a basic description of what they do. This module will need to
+provide a way to copy the command string to be processed to it, and then
+process it.
