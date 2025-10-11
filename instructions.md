@@ -48,3 +48,16 @@ executing the delay commands.
 
 See if you are able to refactor the blinking LED program into one that doesn't
 depend on the delay command.
+
+## Lab 03
+
+Now that we have a way to tell that our code is "alive", we want to expand it
+such that it can communicate with us. This communication will be done via a
+serial port (don't worry, no extra hardware is required). This serial port is
+implemented via the USB cable that you have been using to program the board.
+
+Create a new "console" module that initializes the serial port and prints out
+a message.
+
+Once you have your code loaded into the board, you may see it by monitoring the
+serial port. This may be start by clicking on Tools > Serial Monitor.
